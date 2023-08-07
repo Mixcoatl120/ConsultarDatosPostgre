@@ -2,7 +2,7 @@ import tkinter
 import openpyxl
 from Conexion_postgre import est_conexion
 from tkinter import *
-from tkinter import messagebox, filedialog, Tk, ttk, Canvas, Label
+from tkinter import messagebox, filedialog, Tk, ttk, Label
 
 #funciones
 def cargar_archivo():
@@ -36,18 +36,15 @@ root.title("Consulta de tablas")
 root.geometry("1500x750")
 root.resizable(width=False, height=False)
 
-#Canvas
-#canvas = Canvas(root,height=750, width=1500,)
-#canvas.pack()
-
-#frame1
+#frame de tabla de xlsx
 framexlsx = Frame(root, border=25)
 framexlsx.place(x=5,y=10)
 
-#frame2
+#frame de botones
 FrameBotones = Frame(root, border=5,relief=RIDGE)
 FrameBotones.place(x=30, y=280)
 
+#Frame de postgre
 framepostgre = Frame(root, border=25)
 framepostgre.place(x=5,y=380)
 
@@ -112,6 +109,7 @@ buttonconexion.grid(row=0, column=1)
 
 #-----------------------------------------------------------------------Labels--------------------------------------------------------------------------
 
+#tituli de tabla postgres
 titulopostgre = Label(framepostgre,text="Visualizacion de postgre", anchor=W)
 titulopostgre.grid(row=0,column=0)
 
