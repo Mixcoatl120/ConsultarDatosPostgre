@@ -1,4 +1,3 @@
-from distutils.util import change_root
 import tkinter
 import openpyxl
 from Conexion_postgre import est_conexion
