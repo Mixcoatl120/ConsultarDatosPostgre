@@ -1,3 +1,4 @@
+from os import close
 import psycopg2
 from tkinter import messagebox
 
@@ -13,3 +14,8 @@ def est_conexion():
         messagebox.showinfo("conexion exitosa","conexion establecida")
     except Exception as ex:
         messagebox.showinfo("error en la conexion",ex)
+    finally:
+        conn.close()
+
+
+
