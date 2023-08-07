@@ -1,7 +1,7 @@
 import tkinter
 import openpyxl
 from tkinter import *
-from tkinter import messagebox, filedialog, Tk, ttk
+from tkinter import messagebox, filedialog, Tk, ttk, Canvas
 
 #funciones
 def cargar_archivo():
@@ -13,7 +13,9 @@ def cargar_archivo():
 
         #LLenado de datos 
         for value_tuple in lista_valores[1:]:
-            tabla.insert('',tkinter.END, values=value_tuple)
+            tabla.insert('',tkinter.END,text="" ,values=value_tuple)
+
+
 
         #mesaje de carga completa
         messagebox.showinfo("Carga completada","Carga completada de archivo excel")
@@ -31,20 +33,34 @@ def cargar_archivo():
 root = Tk()
 root.title("Consulta de tablas")
 
+
+
 #frame1
 frame1 = Frame(root, height=750, width=1500, bg="red")
 frame1.grid(row=0, column=0)
 
 #frame2
 frame2 = Frame(root, height=100, width=200, bg="blue")
-frame2.grid(row=1, column=0, )
+frame2.grid(row=1, column=0)
+
 
 #tabla
-tabla = ttk.Treeview(frame1,columns=("Bitacora","Razon social","Rfc"))
-tabla.heading("#0",text="Fecha", anchor=W)
-tabla.heading("#1",text="Bitacora", anchor=W)
-tabla.heading("#2",text="Razon social", anchor=W)
-tabla.heading("#3",text="Rfc", anchor=W)
+#Esta tabla muestra los datos extraidos de exel
+tabla = ttk.Treeview(frame1,columns=("Fecha","Bitacora","Razon social","Rfc"))
+tabla.heading("#0",text="Num.", anchor=W)
+tabla.column("#0",width=50, stretch=False)
+
+tabla.heading("#1",text="Fecha", anchor=W)
+tabla.column("Fecha",width=85, stretch=False)
+
+tabla.heading("#2",text="Bitacora", anchor=W)
+tabla.column("Bitacora",width=130, stretch=False)
+
+tabla.heading("#3",text="Razon social", anchor=W)
+tabla.column("Razon social",width=400, stretch=False)
+
+tabla.heading("#4",text="Rfc", anchor=W)
+tabla.column("Rfc",width=100, stretch=False)
 tabla.grid(row=1,column=0)
 
 #Barra de dislizar de la tabla
@@ -54,6 +70,6 @@ scrollbar.grid(row=1, column=1, sticky='ns')
 
 #boton
 buttonCarga = Button(frame2, text="Abrir Excell", command=lambda:cargar_archivo())
-buttonCarga.grid(row=2, column=0)
+buttonCarga.grid(row=0, column=0)
 
 root.mainloop()
