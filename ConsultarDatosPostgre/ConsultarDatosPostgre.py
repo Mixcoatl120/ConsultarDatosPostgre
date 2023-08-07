@@ -1,5 +1,7 @@
+from distutils.util import change_root
 import tkinter
 import openpyxl
+from Conexion_postgre import est_conexion
 from tkinter import *
 from tkinter import messagebox, filedialog, Tk, ttk, Canvas
 
@@ -13,15 +15,13 @@ def cargar_archivo():
 
         #LLenado de datos 
         for value_tuple in lista_valores[1:]:
-            tabla.insert('',tkinter.END,text="" ,values=value_tuple)
-
-
+            tabla.insert('',tkinter.END,text="1" ,values=value_tuple)
 
         #mesaje de carga completa
         messagebox.showinfo("Carga completada","Carga completada de archivo excel")
 
-    except:
-        messagebox.showwarning("Error en la carga","Error")
+    except Exception as ex:
+        messagebox.showwarning("Error en la carga",ex)
         
 
 
@@ -33,19 +33,21 @@ def cargar_archivo():
 root = Tk()
 root.title("Consulta de tablas")
 
-
+#Canvas
+canvas = Canvas(root,height=750, width=1500,)
+canvas.pack()
 
 #frame1
-frame1 = Frame(root, height=750, width=1500, bg="red")
-frame1.grid(row=0, column=0)
+frame1 = Frame(root, border=25, )
+frame1.place(x=5,y=10)
 
 #frame2
-frame2 = Frame(root, height=100, width=200, bg="blue")
-frame2.grid(row=1, column=0)
+frame2 = Frame(root, border=5,relief=RIDGE)
+frame2.place(width=190,height=35,x=30, y=280)
 
 
-#tabla
-#Esta tabla muestra los datos extraidos de exel
+#tabla0
+#Esta tabla muestra los datos extraidos del excel
 tabla = ttk.Treeview(frame1,columns=("Fecha","Bitacora","Razon social","Rfc"))
 tabla.heading("#0",text="Num.", anchor=W)
 tabla.column("#0",width=50, stretch=False)
@@ -63,13 +65,19 @@ tabla.heading("#4",text="Rfc", anchor=W)
 tabla.column("Rfc",width=100, stretch=False)
 tabla.grid(row=1,column=0)
 
-#Barra de dislizar de la tabla
+#Barra de deslizar de la tabla
 scrollbar = ttk.Scrollbar(frame1, orient=tkinter.VERTICAL, command=tabla.yview)
 tabla.configure(yscroll=scrollbar.set)
 scrollbar.grid(row=1, column=1, sticky='ns')
 
-#boton
+#boton carga de archivos .xlsx
 buttonCarga = Button(frame2, text="Abrir Excell", command=lambda:cargar_archivo())
-buttonCarga.grid(row=0, column=0)
+buttonCarga.grid(row=0, column=0,sticky='ns')
+
+#boton para establecer la conexion
+buttonconexion = Button(frame2, text="Conexion postgres", command=lambda:est_conexion())
+buttonconexion.grid(row=0, column=1)
+
+
 
 root.mainloop()
