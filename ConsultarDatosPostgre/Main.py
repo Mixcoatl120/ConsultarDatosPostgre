@@ -1,7 +1,8 @@
 #Funciones
 import tkinter
 import openpyxl
-from Conexion_postgre import est_conexion
+import pandas as pd
+from Conexion_postgre import est_conexion,Actualizar_datos
 from tkinter import *
 from tkinter import Tk, ttk, Label, filedialog, messagebox
 
@@ -22,8 +23,23 @@ def cargar_archivo():
 
     except Exception as ex:
         messagebox.showwarning("Error en la carga",ex)
-#Inicio de programa
+    finally:
+        print(filename)
+        print(lista_valores[1:3])
 
+#def ciclo():
+   # a = []
+    #b = []
+
+    #a = pd.read_excel()
+    #try:
+        #for i in :
+            #Actualizar_datos(rfc=a[i],bitacora=b[i])
+    #except Exception as ex:
+        #messagebox.showinfo("no se puede realizar el ciclo",ex)
+
+
+#Inicio de programa
 #ventana
 root = Tk()
 root.title("Consulta de tablas")
@@ -95,16 +111,21 @@ scrollbarpos.grid(row=1, column=1, sticky='ns')
 
 #boton carga de archivos .xlsx
 buttonCarga = Button(FrameBotones, text="Abrir Excell", command=lambda:cargar_archivo())
-buttonCarga.grid(row=0, column=0,sticky='ns')
+buttonCarga.grid(row=0, column=0)
+
+buttonActualizar = Button(FrameBotones, text="Actualizar", command=lambda:ciclo())
+buttonActualizar.grid(row=0, column=1)
 
 #boton para establecer la conexion
 #buttonconexion = Button(FrameBotones, text="Conexion postgres", command=lambda:est_conexion())
-#buttonconexion.grid(row=0, column=1)
+#buttonconexion.grid(row=0, column=2)
 
 #-----------------------------------------------------------------------Labels--------------------------------------------------------------------------
 
 #titulo de tabla postgres
 titulopostgre = Label(framepostgre,text="Visualizacion de postgre", anchor=W)
 titulopostgre.grid(row=0,column=0)
+
+
 
 root.mainloop()
