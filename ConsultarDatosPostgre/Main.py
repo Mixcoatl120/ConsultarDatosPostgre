@@ -27,7 +27,7 @@ def cargar_archivo():
         print(filename)
         print(lista_valores[1:3])
 
-#def ciclo():
+def ciclo():
    # a = []
     #b = []
 
