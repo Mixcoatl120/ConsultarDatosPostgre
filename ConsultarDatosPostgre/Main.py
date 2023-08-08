@@ -1,10 +1,11 @@
+#Funciones
 import tkinter
 import openpyxl
 from Conexion_postgre import est_conexion
 from tkinter import *
-from tkinter import messagebox, filedialog, Tk, ttk, Label
+from tkinter import Tk, ttk, Label, filedialog, messagebox
 
-#funciones
+#Funciones
 def cargar_archivo():
     try:
         filename = filedialog.askopenfilename() #lectura de direccion de archivo(Direccion del archivo)
@@ -14,20 +15,13 @@ def cargar_archivo():
 
         #LLenado de datos 
         for value_tuple in lista_valores[1:]:
-            i = 0
-            i = i + 1
-            tabla.insert('',tkinter.END,text=str(i) ,values=value_tuple)
+            tabla.insert('',tkinter.END,text="#" ,values=value_tuple)
 
         #mesaje de carga completa
         messagebox.showinfo("Carga completada","Carga completada de archivo excel")
 
     except Exception as ex:
         messagebox.showwarning("Error en la carga",ex)
-        
-
-
-
-
 #Inicio de programa
 
 #ventana
@@ -42,11 +36,11 @@ framexlsx.place(x=5,y=10)
 
 #frame de botones
 FrameBotones = Frame(root, border=5,relief=RIDGE)
-FrameBotones.place(x=30, y=280)
+FrameBotones.place(x=850, y=35)
 
 #Frame de postgre
 framepostgre = Frame(root, border=25)
-framepostgre.place(x=5,y=380)
+framepostgre.place(x=5,y=315)
 
 
 #-------------------------------------------------------------Tablas------------------------------------------------------------------------------------
@@ -104,12 +98,12 @@ buttonCarga = Button(FrameBotones, text="Abrir Excell", command=lambda:cargar_ar
 buttonCarga.grid(row=0, column=0,sticky='ns')
 
 #boton para establecer la conexion
-buttonconexion = Button(FrameBotones, text="Conexion postgres", command=lambda:est_conexion())
-buttonconexion.grid(row=0, column=1)
+#buttonconexion = Button(FrameBotones, text="Conexion postgres", command=lambda:est_conexion())
+#buttonconexion.grid(row=0, column=1)
 
 #-----------------------------------------------------------------------Labels--------------------------------------------------------------------------
 
-#tituli de tabla postgres
+#titulo de tabla postgres
 titulopostgre = Label(framepostgre,text="Visualizacion de postgre", anchor=W)
 titulopostgre.grid(row=0,column=0)
 
