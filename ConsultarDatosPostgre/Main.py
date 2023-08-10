@@ -28,7 +28,7 @@ def cargar_archivo():
 #ventana
 root = Tk()
 root.title("Consulta de tablas")
-root.geometry("950x650")
+root.geometry("950x450")
 root.resizable(width=False, height=False)
 
 #frame de tabla de xlsx
@@ -69,34 +69,12 @@ scrollbar = ttk.Scrollbar(framexlsx, orient=tkinter.VERTICAL, command=tabla.yvie
 tabla.configure(yscroll=scrollbar.set)
 scrollbar.grid(row=1, column=1, sticky='ns')
 
-#Tabla de postgres
-tablapost = ttk.Treeview(framepostgre ,columns=("Fecha","Bitacora","Razon social","Rfc"))
-tablapost.heading("#0",text="Num.", anchor=W)
-tablapost.column("#0",width=50, stretch=False)
-
-tablapost.heading("#1",text="Fecha", anchor=W)
-tablapost.column("Fecha",width=85, stretch=False)
-
-tablapost.heading("#2",text="Bitacora", anchor=W)
-tablapost.column("Bitacora",width=130, stretch=False)
-
-tablapost.heading("#3",text="Razon social", anchor=W)
-tablapost.column("Razon social",width=400, stretch=False)
-
-tablapost.heading("#4",text="Rfc", anchor=W)
-tablapost.column("Rfc",width=100, stretch=False)
-tablapost.grid(row=1,column=0)
-
-#Barra de deslizar de la tabla postgres
-scrollbarpos = ttk.Scrollbar(framepostgre, orient=tkinter.VERTICAL, command=tablapost.yview)
-tablapost.configure(yscroll = scrollbarpos.set)
-scrollbarpos.grid(row=1, column=1, sticky='ns')
 
 #-----------------------------------------------------------------------Botones-------------------------------------------------------------------------
 
-#boton carga de archivos .xlsx
+#boton carga de archivos framexlsx
 buttonCarga = Button(FrameBotones, text="Abrir Excell", command=lambda:cargar_archivo())
-buttonCarga.grid(row=0, column=0)
+buttonCarga.grid(row=0, column=0, sticky=W+E)
 
 #Boton de actualizar
 buttonActualizar = Button(FrameBotones, text="Actualizar", command=lambda:Actualizar_datos(ruta))
@@ -106,12 +84,7 @@ buttonActualizar.grid(row=1, column=0,sticky=W+E)
 buttonconexion = Button(FrameBotones, text="Insertar datos", command=lambda:Insertar_datos(ruta))
 buttonconexion.grid(row=2, column=0,sticky=W+E)
 
-#-----------------------------------------------------------------------Labels--------------------------------------------------------------------------
-
-#titulo de tabla postgres
-titulopostgre = Label(framepostgre,text="Visualizacion de postgre", anchor=W)
-titulopostgre.grid(row=0,column=0)
-
-
 ruta = cargar_archivo()
+labelruta = Label(framexlsx, text="Ruta: "+ruta )
+labelruta.grid(row=2,column=0,columnspan=2,sticky=W)
 root.mainloop()

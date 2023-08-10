@@ -36,14 +36,19 @@ def Insertar_datos(ruta):
         for x in range(2, filas):
             
             # BITÁCORA
-            bitacora = str.format(sheet['B' + str(x) + ''].value)
+            bitacora = sheet['B' + str(x) + ''].value
             # RFC
-            rfc = str.format(sheet['D' + str(x) + ''].value)
-            
-
+            rfc = sheet['D' + str(x) + ''].value
             cursor = conn.cursor()
-            cursor.execute("INSERT INTO seguimiento (fsolicitud,bitacora_expediente, rnomrazonsolcial, rfc) VALUES (" + "'"+bitacora+"'" + ", "+"'"+rfc+"'"+");")
+
+            if rfc == None or bitacora == None:
+                continue
+            else: 
+                bitacora_1 = str.format(sheet['B' + str(x) + ''].value)
+                rfc_1 = str.format(sheet['D' + str(x) + ''].value)
+                cursor.execute("UPDATE seguimiento SET rfc ="  + "'" + rfc_1 + "'" + " Where bitacora_expediente = " + "'" + bitacora_1 + "'" + ";")
             conn.commit()
+
         messagebox.showinfo("Datos insertados","Sean insertado los datos con exito")#Mensaje de exito
     except Exception as ex:
         messagebox.showwarning("A ocurrido algo inesperado",ex)#dialogo de error 
@@ -53,11 +58,11 @@ def Insertar_datos(ruta):
 def Actualizar_datos(ruta):
     try:
         conn = psycopg2.connect(      
-           dbname = "siset",
-           user = "postgres",
-           password = "Asea2023",
-           host = "localhost",
-           port = "5432"
+           dbname = "siset", #base de datos
+           user = "postgres", #usuario
+           password = "Asea2023", #contraseña
+           host = "localhost", #host
+           port = "5432" #pueto de conexion 
         )
         workbook = openpyxl.load_workbook(ruta) # lectura de archivo
         sheet = workbook.active #Lectura de hoja
@@ -66,10 +71,16 @@ def Actualizar_datos(ruta):
             # BITÁCORA
             bitacora = str.format(sheet['B' + str(x) + ''].value)
             # RFC
-            rfc = str.format(sheet['D' + str(x) + ''].value)
+            rfc = sheet['D' + str(x) + ''].value
             
             cursor = conn.cursor()
-            cursor.execute("UPDATE seguimiento SET rfc = '"+ rfc +"' Where bitacora_expediente = '"+bitacora+"'"+";")
+            if rfc == None:
+                continue
+            else:  
+                rfc_1 = str.format(sheet['D' + str(x) + ''].value)
+                cursor.execute("UPDATE seguimiento SET rfc ="  + "'" + rfc_1 + "'" + " Where bitacora_expediente = " + "'" + bitacora + "'" + ";")
+            
+
             conn.commit()
         messagebox.showinfo("Datos Actualizados","Sean Actualizado los datos con exito")#Mensaje de exito
     except Exception as ex:
