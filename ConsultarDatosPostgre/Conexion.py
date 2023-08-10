@@ -69,16 +69,17 @@ def Actualizar_datos(ruta):
         filas = sheet.max_row + 1 
         for x in range(2, filas):
             # BITÁCORA
-            bitacora = str.format(sheet['B' + str(x) + ''].value)
+            bitacora = sheet['B' + str(x) + ''].value
             # RFC
             rfc = sheet['D' + str(x) + ''].value
             
             cursor = conn.cursor()
-            if rfc == None:
+            if rfc == None or bitacora:
                 continue
             else:  
                 rfc_1 = str.format(sheet['D' + str(x) + ''].value)
-                cursor.execute("UPDATE seguimiento SET rfc ="  + "'" + rfc_1 + "'" + " Where bitacora_expediente = " + "'" + bitacora + "'" + ";")
+                bitacora = str.format(sheet['B' + str(x) + ''].value)
+                cursor.execute("UPDATE seguimiento SET rfc ="  + "'" + rfc_1 + "'" + " Where bitacora_expediente = " + "'" + bitacora_1 + "'" + ";")
             
 
             conn.commit()
