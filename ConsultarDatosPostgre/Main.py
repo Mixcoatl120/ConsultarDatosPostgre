@@ -1,10 +1,9 @@
 #Funciones
 import tkinter
 import openpyxl
-import pandas as pd
-from Conexion_postgre import est_conexion,Actualizar_datos
+from Conexion import Actualizar_datos,Insertar_datos
 from tkinter import *
-from tkinter import Tk, ttk, Label, filedialog, messagebox
+from tkinter import Tk, ttk, Label, filedialog, messagebox, W, E
 
 #Funciones
 def cargar_archivo():
@@ -23,27 +22,13 @@ def cargar_archivo():
 
     except Exception as ex:
         messagebox.showwarning("Error en la carga",ex)
-    finally:
-        print(filename)
-        print(lista_valores[1:3])
-
-def ciclo():
-   # a = []
-    #b = []
-
-    #a = pd.read_excel()
-    #try:
-        #for i in :
-            #Actualizar_datos(rfc=a[i],bitacora=b[i])
-    #except Exception as ex:
-        #messagebox.showinfo("no se puede realizar el ciclo",ex)
-
+    return filename
 
 #Inicio de programa
 #ventana
 root = Tk()
 root.title("Consulta de tablas")
-root.geometry("1500x750")
+root.geometry("950x650")
 root.resizable(width=False, height=False)
 
 #frame de tabla de xlsx
@@ -113,12 +98,13 @@ scrollbarpos.grid(row=1, column=1, sticky='ns')
 buttonCarga = Button(FrameBotones, text="Abrir Excell", command=lambda:cargar_archivo())
 buttonCarga.grid(row=0, column=0)
 
-buttonActualizar = Button(FrameBotones, text="Actualizar", command=lambda:ciclo())
-buttonActualizar.grid(row=0, column=1)
+#Boton de actualizar
+buttonActualizar = Button(FrameBotones, text="Actualizar", command=lambda:Actualizar_datos(ruta))
+buttonActualizar.grid(row=1, column=0,sticky=W+E)
 
-#boton para establecer la conexion
-#buttonconexion = Button(FrameBotones, text="Conexion postgres", command=lambda:est_conexion())
-#buttonconexion.grid(row=0, column=2)
+#boton de insertar datos 
+buttonconexion = Button(FrameBotones, text="Insertar datos", command=lambda:Insertar_datos(ruta))
+buttonconexion.grid(row=2, column=0,sticky=W+E)
 
 #-----------------------------------------------------------------------Labels--------------------------------------------------------------------------
 
@@ -127,5 +113,5 @@ titulopostgre = Label(framepostgre,text="Visualizacion de postgre", anchor=W)
 titulopostgre.grid(row=0,column=0)
 
 
-
+ruta = cargar_archivo()
 root.mainloop()
