@@ -36,17 +36,18 @@ def Insertar_datos(ruta):
         for x in range(2, filas):
             
             # BITÁCORA
-            bitacora = sheet['B' + str(x) + ''].value
+            bitacora = str.format(sheet['B' + str(x) + ''].value)
             # RFC
             rfc = sheet['D' + str(x) + ''].value
             cursor = conn.cursor()
 
-            if rfc == None or bitacora == None:
+            if rfc == None:
                 continue
-            else: 
-                bitacora_1 = str.format(sheet['B' + str(x) + ''].value)
+            else:
                 rfc_1 = str.format(sheet['D' + str(x) + ''].value)
-                cursor.execute("INSERT INTO seguimiento (bitacora_expediente, rfc) VALUES (" + "'"+bitacora_1+"'" + ", "+"'"+rfc_1+"'"+");")
+                
+
+                cursor.execute("INSERT INTO seguimiento (bitacora_expediente, rfc) VALUES (" + "'"+bitacora+"'" + ", "+"'"+rfc_1+"'"+");")
             conn.commit()
 
         messagebox.showinfo("Datos insertados","Sean insertado los datos con exito")#Mensaje de exito

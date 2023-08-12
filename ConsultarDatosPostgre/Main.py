@@ -28,7 +28,7 @@ def cargar_archivo():
 #ventana
 root = Tk()
 root.title("Consulta de tablas")
-root.geometry("950x450")
+root.geometry("950x300")
 root.resizable(width=False, height=False)
 
 #frame de tabla de xlsx
