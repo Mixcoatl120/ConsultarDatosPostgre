@@ -18,7 +18,7 @@ def cargar_archivo():
             tabla.insert('',tkinter.END,text="#" ,values=value_tuple)
 
         #mesaje de carga completa
-        messagebox.showinfo("Carga completada","Carga completada de archivo excel")
+        messagebox.showinfo("Carga completada","Carga completada de archivo excel sea cargado la ruta: " +filename)
 
     except Exception as ex:
         messagebox.showwarning("Error en la carga",ex)
@@ -85,6 +85,5 @@ buttonconexion = Button(FrameBotones, text="Insertar datos", command=lambda:Inse
 buttonconexion.grid(row=2, column=0,sticky=W+E)
 
 ruta = cargar_archivo()
-labelruta = Label(framexlsx, text="Ruta: "+ruta )
-labelruta.grid(row=2,column=0,columnspan=2,sticky=W)
+
 root.mainloop()
