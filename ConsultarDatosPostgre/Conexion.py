@@ -45,8 +45,6 @@ def Insertar_datos(ruta):
                 continue
             else:
                 rfc_1 = str.format(sheet['D' + str(x) + ''].value)
-                
-
                 cursor.execute("INSERT INTO seguimiento (bitacora_expediente, rfc) VALUES (" + "'"+bitacora+"'" + ", "+"'"+rfc_1+"'"+");")
             conn.commit()
 
